@@ -52,7 +52,7 @@ class Car{
 
         if(this.controls.right){
            // this.x += 2;
-           this.angle -= 0.03;
+           this.angle -= 0.04;
         }
 
         this.y -= this.speed;

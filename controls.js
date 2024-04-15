@@ -37,7 +37,8 @@ class Controls{
                     this.right = true;
                      break;
             }
-            console.table(this);//will help with debugging
+            /* this is removed as we know that the controls works
+            console.table(this);//will help with debugging */
         }
         
 
@@ -68,7 +69,8 @@ class Controls{
                     this.right = false;
                     break;
             }
-            console.table(this);//will help with debugging
+            /* this is removed as we know that the controls works
+            console.table(this);//will help with debugging */
         }
         
     }

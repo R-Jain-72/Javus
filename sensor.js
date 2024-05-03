@@ -1,22 +1,57 @@
 class Sensor{
     constructor(car){
         this.car = car;
-        this.rayCount = 3;
-        this.rayLength = 100;
-        this.raySpread = Math.PI / 4;
+        this.rayCount = 5;
+        this.rayLength = 150;
+        this.raySpread = Math.PI / 2;
 
         this.rays = [];
+        this.readings = [];//tells if there is a border and how far
     }
 
-    update(){
+    update(roadBorders){
+        this.#castRays();
+        this.readings = [];
+        for(let i = 0; i < this.rayLength; i++){
+            this.readings.push(
+                this.#getReadings(this.rays[i],roadBorders)
+            );
+        }
+    }
+
+    #getReadings(ray,roadBorders){
+        let touches = [];
+        for(let i = 0; i < roadBorders.length; i++){
+            const touch = getIntersection(
+                ray[0],
+                ray[1],
+                roadBorders[i][0],
+                roadBorders[i][1]
+            );
+
+            if(touch){
+                touches.push(touch);
+            }
+        }
+
+        if(touches.length.length==0){
+            return null;
+        }
+        else{
+            
+        }
+    }
+
+    #castRays(){
         this.rays = [];
         for(let i = 0; i < this.rayCount; i++){
             const rayAngle = lerp(
                 this.raySpread/2,
                 -this.raySpread/2,
-                i/(this.rayCount-1)
-            );
-        };
+                //i/(this.rayCount-1)
+                this.rayCount == 1 ? 0.5: i/(this.rayCount-1)
+            )+this.car.angle;
+        
 
             const start = {x:this.car.x, y:this.car.y};
             const end={
@@ -26,8 +61,8 @@ class Sensor{
                     Math.cos(rayAngle)*this.rayLength,
             };
             this.rays.push([start,end]);
+        };
     }
-
     draw(ctx){
         for(let i=0;i<this.rayCount;i++){
             ctx.beginPath();

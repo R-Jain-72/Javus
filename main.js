@@ -12,7 +12,7 @@ const car = new Car(100,100,30,50);
 animate();
 
 function animate(){
-    car.update();
+    car.update(road.borders);
     canvas.height=window.innerHeight;
 
     //looks like a camera is following the car

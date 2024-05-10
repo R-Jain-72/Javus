@@ -38,9 +38,12 @@ class Sensor{
             return null;
         }
         else{
-            
+            const offsets = touches.map(e=>e.offset);
+            const minOffset = Math.min(...offsets);
+            return touches.find(e=>e.offset==minOffset);
         }
     }
+    
 
     #castRays(){
         this.rays = [];
@@ -65,6 +68,10 @@ class Sensor{
     }
     draw(ctx){
         for(let i=0;i<this.rayCount;i++){
+            let end = this.rays[i][1];
+            if(this.readings[i]){
+                end = this.readings[i];
+            }
             ctx.beginPath();
             ctx.lineWidth = 2;
             ctx.strokeStyle = "yellow";

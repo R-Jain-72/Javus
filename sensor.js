@@ -34,7 +34,14 @@ class Sensor{
             }
         }
 
-       
+        if(touches.length.length==0){
+            return null;
+        }
+        else{
+            const offsets = touches.map(e=>e.offset);
+            const minOffset = Math.min(...offsets);
+            return touches.find(e=>e.offset==minOffset);
+        }
     }
     
 
